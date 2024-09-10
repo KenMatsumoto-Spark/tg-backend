@@ -27,18 +27,10 @@ AuthorizationController.post('/register' , async (request: Request, response: Re
 
 AuthorizationController.post('/signin', async(request: Request, response: Response) => {
   const { email, password } = request.body
-  console.log({ email, password })
   try{
-    const user = await signInUser(email, password)
-    console.log({ user })
+    const userToken = await signInUser(email, password)
 
-    
-    const mockUser = {
-      _id: '65f38fc78002e3a01167509f',
-      userName: 'testemock'
-    }
-
-    return response.status(200).send({ user: mockUser })
+    return response.status(200).send({ userToken })
   }catch(error){
     return response.status(500).send({ error: error?.toString() })
   }
