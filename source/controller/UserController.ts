@@ -1,7 +1,4 @@
 import { Request, Response, Router } from 'express'
-import searchPlant from '../features/searchPlants'
-import getPlantInfo from '../features/getPlantInfo'
-import mongoose from 'mongoose'
 import User from '../models/User'
 import to from 'await-to-js'
 
@@ -23,7 +20,7 @@ UserController.post('/info' , async (request: Request, response: Response) => {
       code: user.userCode,
       createdAt: user.createdAt
     }
-    
+
     return response.status(202).send(userInfo)
   }
   catch(error) {
