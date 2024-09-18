@@ -9,6 +9,6 @@ const applicationRouter = Router()
 applicationRouter.use(cors())
 applicationRouter.use('/unauth', AuthorizationController)
 applicationRouter.use('/plants', PlantController)
-applicationRouter.use('/auth', authentication, UserController)
+applicationRouter.use('/unauth', UserController)
 
 export default applicationRouter

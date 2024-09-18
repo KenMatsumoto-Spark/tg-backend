@@ -4,7 +4,7 @@ const schema = {
 
   ...timestamps,
 
-  userName: {
+  nome: {
     type: String,
     required: true
   },
@@ -14,9 +14,14 @@ const schema = {
     required: true
   },
 
-  password: {
+  senha: {
     type: String,
     required: true
+  },
+
+  codigoRedefinicaoSenha: {
+    type: String,
+    default: "codigoDeRedefiniçãoDesativado"
   }
 }
 

@@ -17,7 +17,7 @@ PlantController.get('/search' , async (request: Request, response: Response) => 
   }
 })
 
-PlantController.get('/plant' , async (request: Request, response: Response) => {
+PlantController.get('/info' , async (request: Request, response: Response) => {
   const { plant_access_token } = request.query
 
   try {

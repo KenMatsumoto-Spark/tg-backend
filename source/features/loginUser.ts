@@ -15,11 +15,11 @@ const signInUser = async (email, password) => {
 
   if(error) throw new Error(error)
 
-  const [matchPassError, matchPass] = await to(bcrypt.compare(password, user?.password))
+  const [matchPassError, matchPass] = await to(bcrypt.compare(password, user?.senha))
   if(matchPassError) throw new Error(matchPassError.message)
 
   const token = jwt.sign({
-    name: user.name,
+    name: user.nome,
     _id: user._id,
     email: user.email,
     code: user.userCode,
