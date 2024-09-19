@@ -1,40 +1,21 @@
 import { Request, Response, Router } from 'express'
-import User from '../models/User'
-import to from 'await-to-js'
 import solicitPasswordChange from '../features/resetPasswordSolicit'
-import resetPasswordConfirm from '../features/resetPasswordChange'
+import UserRules from '../rules/UserRules'
+import resetPasswordConfirm from '../features/resetPasswordConfirm'
+import resetPasswordChange from '../features/resetPasswordChange'
 
 const UserController = Router()
-
-UserController.post('/info' , async (request: Request, response: Response) => {
-  const { plantName } = request.query
-  const userId = request.userId
-
-  try {
-    const [userError, user] = await to(User.findOne({ _id: userId }))
-    if(userError) throw new Error(userError.toString())
-    if(!user) throw new Error('usuario não encontrado')
-
-    const userInfo = {
-      name: user.nome,
-      _id: user._id,
-      email: user.email,
-      code: user.userCode,
-      createdAt: user.createdAt
-    }
-
-    return response.status(202).send(userInfo)
-  }
-  catch(error) {
-    return response.status(500).send({ error: error?.toString() })
-  }
-})
 
 UserController.post('/password/solicit', async (request: Request, response: Response) => {
 
   const { email } = request.body
-  console.log({ email })
 
+  const invalid = UserRules.general(
+    { email }
+  )
+  
+  if (invalid) return response.status(422).send({ invalid })
+    
   if(!email) throw new Error('Obrigatorio envio do email')
   try {
     await solicitPasswordChange(email)
@@ -46,12 +27,18 @@ UserController.post('/password/solicit', async (request: Request, response: Resp
   }
 })
 
-UserController.post('/password/cofirm', async (request: Request, response: Response) => {
+UserController.post('/password/confirm', async (request: Request, response: Response) => {
 
   const {  passwordResetCode } = request.body
 
+  const invalid = UserRules.general(
+    { passwordResetCode }
+  )
+  
+  if (invalid) return response.status(422).send({ invalid })
+
   try {
-    // await resetPasswordConfirm( passwordResetCode )
+    await resetPasswordConfirm( passwordResetCode )
 
     return response.status(202).send('Email Enviado.')
   }
@@ -60,12 +47,20 @@ UserController.post('/password/cofirm', async (request: Request, response: Respo
   }
 })
 
-UserController.post('/password/cofirm', async (request: Request, response: Response) => {
+UserController.post('/password/confirm', async (request: Request, response: Response) => {
 
-  const { password, corfirmPassword, passwordResetCode } = request.body
+  const { password, passwordConfirmation, passwordResetCode } = request.body
+
+  const invalid = UserRules.general(
+    { passwordResetCode },
+    { password },
+    { passwordConfirmation: { password, passwordConfirmation }}
+  )
+  
+  if (invalid) return response.status(422).send({ invalid })
 
   try {
-    await resetPasswordConfirm( password, corfirmPassword, passwordResetCode )
+    await resetPasswordChange( password, passwordConfirmation, passwordResetCode )
 
     return response.status(202).send('Sernha redefinida com sucesso.')
   }

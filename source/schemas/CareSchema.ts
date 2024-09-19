@@ -8,12 +8,17 @@ const schema = {
 
   ...timestamps,
 
-  userId:{
+  planta_id:{
     type: ObjectId,
     required: true
   },
 
-  nome:{
+  tipo_atividade_id:{
+    type: ObjectId,
+    required: true
+  },
+
+  atividade:{
     type: String,
     required: true
   },
@@ -23,12 +28,19 @@ const schema = {
     required: true
   },
 
-  codigo_acesso_planta:{
+  mensagem_notificacao:{
     type: String,
     required: true
+  },
+
+  periodicidade:{
+    type: Array<String>,
+    required: true
+  },
+
+  dataHora:{
+    type: Date
   }
-  
-  
 }
 
 export default {

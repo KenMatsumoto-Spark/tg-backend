@@ -4,16 +4,21 @@ import User from '../models/User'
 import Plant from '../models/Plant'
 import mongoose from 'mongoose'
 
-const addPlant = async (userId, plantId, customName) => {
+const addPlant = async (userId, plant, plant_access_token) => {
   
   const session = await mongoose.startSession()
   session.startTransaction()
 
   try{
+
+    const newPlantId = new mongoose.Types.ObjectId()
+
     const [error, addedPlant] = await to(Plant.create({
-      userId,
-      plantId,
-      customName
+      _id: newPlantId,
+      id_usuario: userId,
+      nome: plant.common_names[0],
+      url_imagem: plant.image.value,
+      codigo_acesso_planta: plant_access_token
     }, {
       options: { session }
     }))
@@ -21,7 +26,7 @@ const addPlant = async (userId, plantId, customName) => {
     if(error) throw new Error()
   
     const [errorUser, updateResult] = await to(User.updateOne(userId, {
-      myPlants: { $push: plantId },
+      myPlants: { $push: newPlantId },
     }, { options: { session } }))
   
     if(errorUser) throw new Error()

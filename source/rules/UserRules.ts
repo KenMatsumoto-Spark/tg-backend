@@ -49,6 +49,16 @@ const UserRules = {
       message: 'É obrigatório o uso de no mínimo 6 caracteres'
     })
 
+    validator.addRule('passwordResetCode', {
+      validator: (value: string) => value.trim().length == 6,
+      message: 'Codigo de recuperação de senha inválido!'
+    })
+
+    validator.addRule('passwordConfirmation', {
+      validator: (value: any) => value.password == value.passwordConfirmation,
+      message: 'Senhas não coincidem!'
+    })
+
     const invalid = validator.check(...args)
 
     return invalid

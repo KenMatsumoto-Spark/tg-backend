@@ -12,4 +12,4 @@ const User: mongoose.Schema = new mongoose.Schema(UserSchema.schema, { timestamp
 
 User.plugin(AutoIncrement, { inc_field: 'userCode' })
 
-export default mongoose.model<IUser, IUserModel>('User', User)
+export default mongoose.model<IUser, IUserModel>('usuario', User)

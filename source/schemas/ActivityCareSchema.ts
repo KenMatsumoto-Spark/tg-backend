@@ -8,26 +8,22 @@ const schema = {
 
   ...timestamps,
 
-  userId:{
-    type: ObjectId,
-    required: true
+  efetuado:{
+    type: Boolean
   },
 
-  nome:{
-    type: String,
-    required: true
+  dataHora: {
+    type: Date
   },
 
-  url_imagem:{
-    type: String,
-    required: true
+  observacoes:{
+    type: String
   },
 
-  codigo_acesso_planta:{
-    type: String,
-    required: true
+  cuidado_id:{
+    Type: ObjectId
   }
-  
+
   
 }
 

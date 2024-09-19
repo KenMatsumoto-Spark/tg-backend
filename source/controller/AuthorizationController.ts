@@ -6,13 +6,15 @@ import signInUser from '../features/loginUser'
 const AuthorizationController = Router()
 
 AuthorizationController.post('/register' , async (request: Request, response: Response) => {
-  const { userName, password, email } = request.body
-  console.log({ userName, password, email })
+  const { userName, password, passwordConfirmation, email } = request.body
+  
   const invalid = UserRules.general(
     { userName },
     { password },
-    { email }
+    { email },
+    { passwordConfirmation: { password, passwordConfirmation }}
   )
+
   if (invalid) return response.status(422).send({ invalid })
 
   try {
@@ -27,6 +29,14 @@ AuthorizationController.post('/register' , async (request: Request, response: Re
 
 AuthorizationController.post('/signin', async(request: Request, response: Response) => {
   const { email, password } = request.body
+
+  const invalid = UserRules.general(
+    { password },
+    { email }
+  )
+  
+  if (invalid) return response.status(422).send({ invalid })
+
   try{
     const userToken = await signInUser(email, password)
 

@@ -7,9 +7,9 @@ const registerUser = async (userName, email, password) => {
   const encryptedPass = await bcrypt.hash(password, 14)
 
   const [error, user] = await to(User.create({
-    userName,
+    nome: userName,
     email,
-    password: encryptedPass
+    senha: encryptedPass
   }))
 
   if(error) throw new Error(error.toString())

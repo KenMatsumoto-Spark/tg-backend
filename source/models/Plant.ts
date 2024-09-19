@@ -12,4 +12,4 @@ const Plant: mongoose.Schema = new mongoose.Schema(PlantSchema.schema, { timesta
 
 Plant.plugin(AutoIncrement, { inc_field: 'plantCode' })
 
-export default mongoose.model<IPlant, IPlantModel>('Plant', Plant)
+export default mongoose.model<IPlant, IPlantModel>('Planta', Plant)
