@@ -8,6 +8,10 @@ const schema = {
   descricao:{
     type: String,
     required: true
+  },
+
+  mensagem_padrao:{
+    type: String
   }
 }
 
