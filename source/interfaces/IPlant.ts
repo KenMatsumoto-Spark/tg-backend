@@ -7,4 +7,3 @@ export default interface IPlant extends Document {
   url_imagem: string
   codigo_acesso_planta: string
 }
-

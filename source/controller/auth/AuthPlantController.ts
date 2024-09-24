@@ -4,7 +4,7 @@ import addPlant from '../../features/addPlant'
 import PlantRules from '../../rules/PlantRules'
 import showPlantByUser from '../../features/showPlantByUser'
 import listPlantsByUser from '../../features/listPlantsByUser'
-import addCareToPlant from '../../features/addCaretoPlant'
+import addCareToPlant from '../../features/addCareToPlant'
 
 const PlantController = Router()
 

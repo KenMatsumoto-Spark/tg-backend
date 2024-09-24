@@ -9,4 +9,3 @@ export default interface IUser extends Document {
   userCode: number
   codigoRedefinicaoSenha: string
 }
-
