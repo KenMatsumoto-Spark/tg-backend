@@ -40,14 +40,14 @@ UserController.post('/password/confirm', async (request: Request, response: Resp
   try {
     await resetPasswordConfirm( passwordResetCode )
 
-    return response.status(202).send('Email Enviado.')
+    return response.status(202).send('Codigo de mudança de senha confirmado.')
   }
   catch(error) {
     return response.status(500).send({ error: error?.toString() })
   }
 })
 
-UserController.post('/password/confirm', async (request: Request, response: Response) => {
+UserController.post('/password/new', async (request: Request, response: Response) => {
 
   const { password, passwordConfirmation, passwordResetCode } = request.body
 
