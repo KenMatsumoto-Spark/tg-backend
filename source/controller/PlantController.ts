@@ -4,7 +4,7 @@ import getPlantInfo from '../features/getPlantInfo'
 
 const PlantController = Router()
 
-PlantController.get('plant/search' , async (request: Request, response: Response) => {
+PlantController.get('/search' , async (request: Request, response: Response) => {
   const { plantName } = request.query
 
   try {
