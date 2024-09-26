@@ -10,7 +10,6 @@ const addPlant = async (userId, plant, plant_access_token) => {
   session.startTransaction()
 
   try{
-
     const newPlantId = new mongoose.Types.ObjectId()
 
     const [error, addedPlant] = await to(Plant.create({
@@ -24,24 +23,9 @@ const addPlant = async (userId, plant, plant_access_token) => {
     }))
   
     if(error) throw new Error()
-  
-    const [errorUser, updateResult] = await to(User.updateOne(userId, {
-      myPlants: { $push: newPlantId },
-    }, { options: { session } }))
-  
-    if(errorUser) throw new Error()
-      
-    if(updateResult.modifiedCount !== 1){
-      throw new Error('numero de arquivos alterados diferente do esperado.')
-    }
 
-    await session.commitTransaction()
-    session.endSession()
-
+      return addedPlant
   } catch(ex){
-    await session.abortTransaction()
-    session.endSession()
-
     throw ex
   }
 

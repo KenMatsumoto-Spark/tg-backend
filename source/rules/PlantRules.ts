@@ -11,13 +11,18 @@ const PlantRules = {
       validator: (value: string) => mongoose.Types.ObjectId.isValid(value),
       message: 'Id da planta inválido!'
     })
+    
+    validator.addRule('careId', {
+      validator: (value: string) => mongoose.Types.ObjectId.isValid(value),
+      message: 'Id do cuidado inválido!'
+    })
 
     validator.addRule('tipo_Atividade', {
       validator: (value: string) => value,
       message: ''
     })
     validator.addRule('periodicidade', {
-      validator: (value: string) => (value),
+      validator: (value) => (['seg','ter','qua','qui','sex', 'sab', 'dom'].every(value)),
       message: ''
     })
     validator.addRule('dataHora', {
