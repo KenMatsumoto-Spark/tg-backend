@@ -5,7 +5,7 @@ import User from '../../models/User'
 
 const UserController = Router()
 
-UserController.post('/info' , async (request: Request, response: Response) => {
+UserController.get('/info' , async (request: Request, response: Response) => {
   const userId = request.userId
 
   try {

@@ -8,12 +8,18 @@ import AuthUserController from '../controller/auth/AuthUserController'
 import AuthPlantController from '../controller/auth/AuthPlantController'
 
 const applicationRouter = Router()
+const authRouter = Router()
+
+
 applicationRouter.use(cors())
 applicationRouter.use('/unauth', AuthorizationController)
 applicationRouter.use('/unauth', UserController)
-applicationRouter.use('/unauth', PlantController)
+applicationRouter.use('/unauth/plants', PlantController)
 
-applicationRouter.use('/auth', authentication, AuthUserController)
-applicationRouter.use('/auth', authentication, AuthPlantController)
+applicationRouter.use('/auth', authentication, authRouter)
+applicationRouter.use('/auth', authentication, authRouter)
+
+authRouter.use('/user', AuthUserController)
+authRouter.use('/plant', AuthPlantController)
 
 export default applicationRouter

@@ -24,10 +24,10 @@ const authentication = async function (request: Request, response: Response, nex
 
         if (!decriptedJwt) return response.status(401).send('Acesso negado: token inválida.')
 
-        if (decriptedJwt?.user?._id) {
+        if (decriptedJwt?._id) {
           
-          const [userError, user] = await to(User.findOne(new mongoose.Types.ObjectId(decriptedJwt.user._id)))
-          console.log({ userError, user })
+          const [userError, user] = await to(User.findOne(new mongoose.Types.ObjectId(decriptedJwt._id)))
+
           if (userError) return response.status(404).send('Ocorreu um erro ao encontrar o usuario!', { error: userError })
 
           if (!user) return response.status(401).send('Acesso negado: usuário não existe!')
