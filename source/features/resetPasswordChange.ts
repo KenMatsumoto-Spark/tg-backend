@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt'
 import User from '../models/User'
 import to from 'await-to-js'
 
-const resetPasswordChange = async (passwordResetCode, password, passwordConfirmation) => {
+const resetPasswordChange = async (password, passwordConfirmation, passwordResetCode) => {
 
   if(password !== passwordConfirmation) throw new Error('Senhas não coincidem')
 
