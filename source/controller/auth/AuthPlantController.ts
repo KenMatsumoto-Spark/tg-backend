@@ -51,7 +51,7 @@ PlantController.get('/list' , async (request: Request, response: Response) => {
   }
 })
 
-PlantController.get('/add' , async (request: Request, response: Response) => {
+PlantController.post('/add' , async (request: Request, response: Response) => {
   const { plant_access_token } = request.query
 
   const userId = request.userId
