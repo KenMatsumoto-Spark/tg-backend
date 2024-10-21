@@ -8,7 +8,7 @@ const schema = {
 
   ...timestamps,
 
-  userId:{
+  id_usuario:{
     type: ObjectId,
     required: true
   },

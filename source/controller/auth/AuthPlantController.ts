@@ -54,11 +54,11 @@ PlantController.get('/list' , async (request: Request, response: Response) => {
 PlantController.get('/add' , async (request: Request, response: Response) => {
   const { plant_access_token } = request.query
 
-  const { userId } = request.userId
+  const userId = request.userId
 
   try {
     const plant = await getPlantInfo(plant_access_token)
-  
+
     if(!plant) throw new Error("A planta não foi encontrada.")
 
     await addPlant(userId, plant, plant_access_token)
