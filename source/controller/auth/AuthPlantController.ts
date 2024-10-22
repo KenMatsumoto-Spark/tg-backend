@@ -29,22 +29,20 @@ PlantController.get('/:plantId/show' , async (request: Request, response: Respon
 
     const cares = await showPlantCare(plantId)
     
-    return response.status(202).send("planta e cuidados encontrados com sucesso.", { plant, cares })
+    return response.status(202).send({ plant, cares })
   }
   catch(error) {
     return response.status(500).send({ error: error?.toString() })
   }
 })
 
-
 PlantController.get('/list' , async (request: Request, response: Response) => {
   const userId = request.userId
-  const { page = 1 , limit = 10 } = request.query
 
   try {
-    const list = await listPlantsByUser(userId, page, limit)
+    const list = await listPlantsByUser(userId)
 
-    return response.status(202).send("plantas encontrada com sucesso", { list })
+    return response.status(202).send({ list })
   }
   catch(error) {
     return response.status(500).send({ error: error?.toString() })
