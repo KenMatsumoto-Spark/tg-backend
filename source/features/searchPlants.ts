@@ -25,7 +25,6 @@ const searchPlant = async (search) => {
 
   const plants = searchData?.data?.entities
   
-  console.log({ plants })
   return plants
 }
 

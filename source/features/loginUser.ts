@@ -14,7 +14,6 @@ const signInUser = async (email, password) => {
   if(!user) throw new Error('usuário não encontrado')
 
   if(error) throw new Error(error)
-  console.log({ password, senha: user?.senha })
 
   const [matchPassError, matchPass] = await to(bcrypt.compare(password, user?.senha))
 
@@ -29,8 +28,6 @@ const signInUser = async (email, password) => {
     tokenType: 'authToken'
   }, process.env.AUTH_PRIVATE_KEY, jwtOptions)
 
-
-  console.log({ token })
   
   return token
 }

@@ -88,7 +88,6 @@ const getPlantInfo = async (plant_access_token) => {
   
   const [error, plantInfo] = await to(axios.request(config))
 
-  console.log({ error, plantInfo })
   if(error) throw new Error()
   
   const plant = plantInfo?.data

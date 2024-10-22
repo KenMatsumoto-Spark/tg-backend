@@ -16,14 +16,12 @@ const solicitPasswordChange = async (email) => {
   if(!user) throw new Error('Usuario não encontrado.')
 
   const newPasswordResetCode = randomString.generate({ length: 6, charset: 'numeric'})
-  console.log({ newPasswordResetCode})
-  
+
   const [errorUpdate, userUpdate] = await to(User.updateOne({
     _id: user._id
   },{
     codigoRedefinicaoSenha: newPasswordResetCode
   }))
-  console.log({ errorUpdate, userUpdate })
   
   if(errorUpdate) throw new Error(errorUpdate.toString())
     
@@ -113,7 +111,7 @@ const solicitPasswordChange = async (email) => {
     })
   request
     .then((result) => {
-      console.log(result.body)
+      
     })
     .catch((err) => {
       throw new Error(err)

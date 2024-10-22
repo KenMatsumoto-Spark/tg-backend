@@ -13,7 +13,7 @@ const PlantController = Router()
 
 PlantController.get('/:plantId/show' , async (request: Request, response: Response) => {
   const { plantId } = request.params
-  const { userId } = request.userId
+  const userId = request.userId
 
   const invalid = PlantRules.general(
     { plantId }
@@ -38,13 +38,13 @@ PlantController.get('/:plantId/show' , async (request: Request, response: Respon
 
 
 PlantController.get('/list' , async (request: Request, response: Response) => {
-  const { userId } = request.userId
+  const userId = request.userId
   const { page = 1 , limit = 10 } = request.query
 
   try {
-    await listPlantsByUser(userId, page, limit)
+    const list = await listPlantsByUser(userId, page, limit)
 
-    return response.status(202).send("plantas encontrada com sucesso")
+    return response.status(202).send("plantas encontrada com sucesso", { list })
   }
   catch(error) {
     return response.status(500).send({ error: error?.toString() })
@@ -92,7 +92,7 @@ PlantController.get('/:plantId/care/:careId/show' , async (request: Request, res
 
 PlantController.patch('/:plantId/care/:careId/edit' , async (request: Request, response: Response) => {
   const { plantId, careId } = request.params
-  const { userId } = request.userId
+  const userId = request.userId
 
   const { tipo_Atividade, periodicidade, dataHora, mensagem_notificação } = request.body
 
@@ -119,7 +119,7 @@ PlantController.patch('/:plantId/care/:careId/edit' , async (request: Request, r
 
 PlantController.post('/:plantId/care/add' , async (request: Request, response: Response) => {
   const { plantId } = request.params
-  const { userId } = request.userId
+  const userId = request.userId
 
   const { tipo_Atividade, periodicidade, dataHora, mensagem_notificação } = request.body
 
