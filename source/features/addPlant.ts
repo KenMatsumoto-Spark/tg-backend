@@ -9,7 +9,7 @@ const addPlant = async (userId, plant, plant_access_token) => {
   try{
     const [error, addedPlant] = await to(Plant.create({
       id_usuario: userId,
-      nome: plant.common_names[0],
+      nome: plant.name,
       url_imagem: plant.image.value,
       codigo_acesso_planta: plant_access_token
     }))
