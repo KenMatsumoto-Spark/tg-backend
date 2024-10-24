@@ -119,22 +119,22 @@ PlantController.post('/:plantId/care/add' , async (request: Request, response: R
   const { plantId } = request.params
   const userId = request.userId
 
-  const { tipo_Atividade, periodicidade, dataHora, mensagem_notificação } = request.body
+  const { id, atividade, hora, minuto, frequencia, dia, texto, ativa } = request.body
 
   const invalid = PlantRules.general(
-    { plantId },
-    { tipo_Atividade },
-    { periodicidade },
-    { dataHora },
-    { mensagem_notificação }
+    // { plantId },
+    // { tipo_Atividade },
+    // { periodicidade },
+    // { dataHora },
+    // { mensagem_notificação }
   )
 
   if (invalid) return response.status(422).send({ invalid })
 
   try {
-    await addCareToPlant(userId, plantId, {tipo_Atividade, periodicidade, dataHora, mensagem_notificação})
+    await addCareToPlant(userId, plantId, {id, atividade, hora, minuto, frequencia, dia, texto, ativa })
 
-    return response.status(202).send("Cuidado da planta adicionada com sucesso")
+    return response.status(202).send("Cuidado da planta adicionada com sucesso.")
   }
   catch(error) {
     return response.status(500).send({ error: error?.toString() })

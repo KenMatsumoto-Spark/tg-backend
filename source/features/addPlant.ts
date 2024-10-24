@@ -1,8 +1,6 @@
 
 import to from 'await-to-js'
-import User from '../models/User'
 import Plant from '../models/Plant'
-import mongoose from 'mongoose'
 
 const addPlant = async (userId, plant, plant_access_token) => {
   

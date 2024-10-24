@@ -2,13 +2,13 @@
 import to from 'await-to-js'
 import axios from 'axios'
 import 'dotenv/config'
+import { readBuilderProgram } from 'typescript'
 
 const plantIdUrl = process.env.PLANT_ID_URL
 const plantIdApiKey = process.env.PLANT_ID_API_KEY
 const env = process.env.ENVIRONMENT
 
 const getPlantInfo = async (plant_access_token) => {
-  
   
   const mockedResponse = {
     "common_names": [

@@ -13,8 +13,8 @@ const schema = {
     required: true
   },
 
-  tipo_atividade_id:{
-    type: ObjectId,
+  id:{
+    type: String,
     required: true
   },
 
@@ -23,24 +23,40 @@ const schema = {
     required: true
   },
 
-  url_imagem:{
+  hora:{
     type: String,
     required: true
   },
 
-  mensagem_notificacao:{
+  minuto:{
     type: String,
     required: true
   },
 
-  periodicidade:{
-    type: Array<String>,
+  frequencia:{
+    type: String,
+    required: true
+  },
+
+  dia:{
+    type: String,
+    required: true
+  },
+
+  texto:{
+    type: String,
+    required: true
+  },
+
+  ativa:{
+    type: String,
     required: true
   },
 
   dataHora:{
     type: Date
   }
+
 }
 
 export default {
