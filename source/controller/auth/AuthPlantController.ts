@@ -122,11 +122,12 @@ PlantController.post('/:plantId/care/add' , async (request: Request, response: R
   const { id, atividade, hora, minuto, frequencia, dia, texto, ativa } = request.body
 
   const invalid = PlantRules.general(
-    // { plantId },
-    // { tipo_Atividade },
-    // { periodicidade },
-    // { dataHora },
-    // { mensagem_notificação }
+    { atividade },
+    { hora },
+    { minuto },
+    { frequencia },
+    { dia },
+    { ativa }
   )
 
   if (invalid) return response.status(422).send({ invalid })

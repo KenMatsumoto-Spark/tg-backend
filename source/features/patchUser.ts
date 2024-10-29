@@ -6,7 +6,7 @@ import User from '../models/User'
 const deleteUser = async (userId, name, avatar) => {
 
   const newParams = {}
-  if(name) newParams['name'] = name
+  if(name) newParams['nome'] = name
   if(avatar) newParams['avatar'] = avatar
 
   const [error, updatedResult] = await to(User.updateOne({

@@ -1,6 +1,10 @@
 import mongoose from 'mongoose'
 import requestCheck from 'request-check'
-import { isDate } from 'util/types'
+import { isBoolean } from 'util';
+
+function isNumber(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
 
 const PlantRules = {
   general: (...args: any) => {
@@ -17,20 +21,28 @@ const PlantRules = {
       message: 'Id do cuidado inválido!'
     })
 
-    validator.addRule('tipo_Atividade', {
+    validator.addRule('atividade', {
       validator: (value: string) => value,
       message: ''
     })
-    validator.addRule('periodicidade', {
-      validator: (value) => (['seg','ter','qua','qui','sex', 'sab', 'dom'].every(value)),
+    validator.addRule('dia', {
+      validator: (value) => (['seg','ter','qua','qui','sex', 'sab', 'dom'].includes(value)),
       message: ''
     })
-    validator.addRule('dataHora', {
-      validator: (value: string) => isDate(value),
+    validator.addRule('hora', {
+      validator: (value: string) => isNumber(value),
       message: ''
     })
-    validator.addRule('mensagem_notificação', {
-      validator: (value: string) => value.length !== 0,
+    validator.addRule('minuto', {
+      validator: (value: string) => isNumber(value),
+      message: ''
+    })
+    validator.addRule('frequencia', {
+      validator: (value: string) => (['diario'].includes(value)),
+      message: ''
+    })
+    validator.addRule('ativa', {
+      validator: (value: string) => isBoolean(value),
       message: ''
     })
 

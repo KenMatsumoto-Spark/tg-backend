@@ -3,6 +3,7 @@ import to from 'await-to-js'
 import User from '../../models/User'
 import deleteUser from '../../features/deleteUser'
 import patchUser from '../../features/patchUser'
+import UserRules from '../../rules/UserRules'
 
 
 const UserController = Router()
@@ -36,6 +37,12 @@ UserController.delete('/account' , async (request: Request, response: Response) 
 
   try {
 
+    const invalid = UserRules.general(
+      { email }
+    )
+    
+    if (invalid) return response.status(422).send({ invalid })
+
     await deleteUser(userId, email)
 
     return response.status(202).send("Usuario excluido.")
@@ -50,6 +57,12 @@ UserController.patch('/edit' , async (request: Request, response: Response) => {
   const { name, avatar } = request.body
 
   try {
+
+    const invalid = UserRules.general(
+      { userName: name }
+    )
+    
+    if (invalid) return response.status(422).send({ invalid })
 
     await patchUser(userId, name, avatar)
 
