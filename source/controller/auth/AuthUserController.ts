@@ -1,6 +1,8 @@
 import { Request, Response, Router } from 'express'
 import to from 'await-to-js'
 import User from '../../models/User'
+import deleteUser from '../../features/deleteUser'
+import patchUser from '../../features/patchUser'
 
 
 const UserController = Router()
@@ -28,7 +30,34 @@ UserController.get('/info' , async (request: Request, response: Response) => {
   }
 })
 
+UserController.delete('/account' , async (request: Request, response: Response) => {
+  const userId = request.userId
+  const { email } = request.body
 
+  try {
 
+    await deleteUser(userId, email)
+
+    return response.status(202).send("Usuario excluido.")
+  }
+  catch(error) {
+    return response.status(500).send({ error: error?.toString() })
+  }
+})
+
+UserController.patch('/edit' , async (request: Request, response: Response) => {
+  const userId = request.userId
+  const { name, avatar } = request.body
+
+  try {
+
+    await patchUser(userId, name, avatar)
+
+    return response.status(202).send("Usuario alterado com sucesso.")
+  }
+  catch(error) {
+    return response.status(500).send({ error: error?.toString() })
+  }
+})
 
 export default UserController
