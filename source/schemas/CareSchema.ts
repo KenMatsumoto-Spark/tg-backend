@@ -8,52 +8,47 @@ const schema = {
 
   ...timestamps,
 
-  planta_id:{
+  planta_id: {
     type: ObjectId,
     required: true
   },
 
-  id:{
+  id: {
     type: String,
     required: true
   },
 
-  atividade:{
+  atividade: {
     type: String,
     required: true
   },
 
-  hora:{
+  hora: {
     type: String,
     required: true
   },
 
-  minuto:{
+  minuto: {
     type: String,
     required: true
   },
 
-  frequencia:{
+  frequencia: {
     type: String,
     required: true
   },
 
-  dia:{
+  dia: {
     type: String,
     required: true
   },
 
-  texto:{
+  ativa: {
     type: String,
     required: true
   },
 
-  ativa:{
-    type: String,
-    required: true
-  },
-
-  dataHora:{
+  dataHora: {
     type: Date
   }
 

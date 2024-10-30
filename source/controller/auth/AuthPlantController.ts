@@ -12,7 +12,7 @@ import toogleCareActive from '../../features/toogleCareActive'
 
 const PlantController = Router()
 
-PlantController.get('/:plantId/show' , async (request: Request, response: Response) => {
+PlantController.get('/:plantId/show', async (request: Request, response: Response) => {
   const { plantId } = request.params
   const userId = request.userId
 
@@ -23,21 +23,21 @@ PlantController.get('/:plantId/show' , async (request: Request, response: Respon
   if (invalid) return response.status(422).send({ invalid })
 
   try {
-    
+
     const plant = await showPlantByUser(userId, plantId)
-  
-    if(!plant) throw new Error("A planta não foi encontrada.")
+
+    if (!plant) throw new Error("A planta não foi encontrada.")
 
     const cares = await showPlantCare(plantId)
-    
+
     return response.status(202).send({ plant, cares })
   }
-  catch(error) {
+  catch (error) {
     return response.status(500).send({ error: error?.toString() })
   }
 })
 
-PlantController.get('/list' , async (request: Request, response: Response) => {
+PlantController.get('/list', async (request: Request, response: Response) => {
   const userId = request.userId
 
   try {
@@ -45,12 +45,12 @@ PlantController.get('/list' , async (request: Request, response: Response) => {
 
     return response.status(202).send({ list })
   }
-  catch(error) {
+  catch (error) {
     return response.status(500).send({ error: error?.toString() })
   }
 })
 
-PlantController.post('/add' , async (request: Request, response: Response) => {
+PlantController.post('/add', async (request: Request, response: Response) => {
   const { plant_access_token } = request.query
 
   const userId = request.userId
@@ -58,18 +58,18 @@ PlantController.post('/add' , async (request: Request, response: Response) => {
   try {
     const plant = await getPlantInfo(plant_access_token)
 
-    if(!plant) throw new Error("A planta não foi encontrada.")
+    if (!plant) throw new Error("A planta não foi encontrada.")
 
     await addPlant(userId, plant, plant_access_token)
 
     return response.status(202).send("planta adicionada com sucesso")
   }
-  catch(error) {
+  catch (error) {
     return response.status(500).send({ error: error?.toString() })
   }
 })
 
-PlantController.get('/:plantId/care/:careId/show' , async (request: Request, response: Response) => {
+PlantController.get('/:plantId/care/:careId/show', async (request: Request, response: Response) => {
   const { plantId, careId } = request.params
   const { userId } = request.userId
 
@@ -84,12 +84,12 @@ PlantController.get('/:plantId/care/:careId/show' , async (request: Request, res
     const care = await showCare(plantId, careId)
     return response.status(202).send("Cuidado da planta adicionada com sucesso")
   }
-  catch(error) {
+  catch (error) {
     return response.status(500).send({ error: error?.toString() })
   }
 })
 
-PlantController.patch('/:plantId/care/:careId/edit' , async (request: Request, response: Response) => {
+PlantController.patch('/:plantId/care/:careId/edit', async (request: Request, response: Response) => {
   const { plantId, careId } = request.params
   const userId = request.userId
 
@@ -107,20 +107,22 @@ PlantController.patch('/:plantId/care/:careId/edit' , async (request: Request, r
   if (invalid) return response.status(422).send({ invalid })
 
   try {
-    await editCare(plantId, careId, {tipo_Atividade, periodicidade, dataHora, mensagem_notificação})
+    await editCare(plantId, careId, { tipo_Atividade, periodicidade, dataHora, mensagem_notificação })
 
     return response.status(202).send("Cuidado da planta adicionada com sucesso")
   }
-  catch(error) {
+  catch (error) {
     return response.status(500).send({ error: error?.toString() })
   }
 })
 
-PlantController.post('/:plantId/care/add' , async (request: Request, response: Response) => {
+PlantController.post('/:plantId/care/add', async (request: Request, response: Response) => {
   const { plantId } = request.params
   const userId = request.userId
+  console.log('1');
 
   const { id, atividade, hora, minuto, frequencia, dia, texto, ativa } = request.body
+  console.log({ id, atividade, hora, minuto, frequencia, dia, texto, ativa });
 
   const invalid = PlantRules.general(
     { atividade },
@@ -130,20 +132,20 @@ PlantController.post('/:plantId/care/add' , async (request: Request, response: R
     { dia },
     { ativa }
   )
-
+  console.log({ invalid })
   if (invalid) return response.status(422).send({ invalid })
 
   try {
-    await addCareToPlant(userId, plantId, {id, atividade, hora, minuto, frequencia, dia, texto, ativa })
+    await addCareToPlant(userId, plantId, { id, atividade, hora, minuto, frequencia, dia, texto, ativa })
 
     return response.status(202).send("Cuidado da planta adicionada com sucesso.")
   }
-  catch(error) {
+  catch (error) {
     return response.status(500).send({ error: error?.toString() })
   }
 })
 
-PlantController.post('/care/:careId/toogle' , async (request: Request, response: Response) => {
+PlantController.post('/care/:careId/toogle', async (request: Request, response: Response) => {
   const { careId } = request.params
 
   try {
@@ -151,10 +153,10 @@ PlantController.post('/care/:careId/toogle' , async (request: Request, response:
 
     return response.status(202).send("Cuidado alterado con sucesso.")
   }
-  catch(error) {
+  catch (error) {
     return response.status(500).send({ error: error?.toString() })
   }
 })
 
-
+  
 export default PlantController

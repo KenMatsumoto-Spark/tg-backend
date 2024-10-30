@@ -8,7 +8,6 @@ export default interface ICare extends Document {
   minuto: string
   frequencia: string
   dia: string
-  texto: string
   ativa: boolean
   planta_id: mongoose.Types.ObjectId
   tipo_atividade_id: mongoose.Types.ObjectId

@@ -15,7 +15,7 @@ const PlantRules = {
       validator: (value: string) => mongoose.Types.ObjectId.isValid(value),
       message: 'Id da planta inválido!'
     })
-    
+
     validator.addRule('careId', {
       validator: (value: string) => mongoose.Types.ObjectId.isValid(value),
       message: 'Id do cuidado inválido!'
@@ -26,7 +26,7 @@ const PlantRules = {
       message: ''
     })
     validator.addRule('dia', {
-      validator: (value) => (['seg','ter','qua','qui','sex', 'sab', 'dom'].includes(value)),
+      validator: (value) => (['seg', 'ter', 'qua', 'qui', 'sex', 'sab', 'dom'].includes(value.toLowerCase())),
       message: ''
     })
     validator.addRule('hora', {
@@ -38,7 +38,7 @@ const PlantRules = {
       message: ''
     })
     validator.addRule('frequencia', {
-      validator: (value: string) => (['diario'].includes(value)),
+      validator: (value: string) => (['hoje'].includes(value.toLowerCase())),
       message: ''
     })
     validator.addRule('ativa', {
