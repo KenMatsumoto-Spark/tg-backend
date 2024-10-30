@@ -6,9 +6,8 @@ import ActivityType from '../models/ActivityType'
 
 const addCareToPlant = async (userId, plantId, care) => {
 
-  try{  
-
-    const [ errorAtividade, activityType ] = await to(ActivityType.findOne({ descricao: care?.tipo_Atividade }))
+  try{
+    const [ errorAtividade, activityType ] = await to(ActivityType.findOne({ descricao: care?.atividade }))
 
     if(errorAtividade) throw new Error("Erro ao encontrar tipo de atividade")
 

@@ -8,6 +8,7 @@ import addCareToPlant from '../../features/addCareToPlant'
 import showPlantCare from '../../features/showPlantCare'
 import showCare from '../../features/showCare'
 import editCare from '../../features/editCare'
+import toogleCareActive from '../../features/toogleCareActive'
 
 const PlantController = Router()
 
@@ -136,6 +137,19 @@ PlantController.post('/:plantId/care/add' , async (request: Request, response: R
     await addCareToPlant(userId, plantId, {id, atividade, hora, minuto, frequencia, dia, texto, ativa })
 
     return response.status(202).send("Cuidado da planta adicionada com sucesso.")
+  }
+  catch(error) {
+    return response.status(500).send({ error: error?.toString() })
+  }
+})
+
+PlantController.post('/care/:careId/toogle' , async (request: Request, response: Response) => {
+  const { careId } = request.params
+
+  try {
+    await toogleCareActive(careId)
+
+    return response.status(202).send("Cuidado alterado con sucesso.")
   }
   catch(error) {
     return response.status(500).send({ error: error?.toString() })
