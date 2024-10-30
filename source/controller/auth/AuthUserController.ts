@@ -4,6 +4,7 @@ import User from '../../models/User'
 import deleteUser from '../../features/deleteUser'
 import patchUser from '../../features/patchUser'
 import UserRules from '../../rules/UserRules'
+import listCaresByUser from '../../features/listCaresByUser'
 
 
 const UserController = Router()
@@ -67,6 +68,20 @@ UserController.patch('/edit' , async (request: Request, response: Response) => {
     await patchUser(userId, name, avatar)
 
     return response.status(202).send("Usuario alterado com sucesso.")
+  }
+  catch(error) {
+    return response.status(500).send({ error: error?.toString() })
+  }
+})
+
+UserController.patch('/care/list' , async (request: Request, response: Response) => {
+  const userId = request.userId
+
+  try {
+
+    const cares = await listCaresByUser(userId)
+
+    return response.status(202).send({ cares })
   }
   catch(error) {
     return response.status(500).send({ error: error?.toString() })
