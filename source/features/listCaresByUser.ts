@@ -12,7 +12,7 @@ const listCaresByUser = async (userId: string) => {
   if(!plants) throw new Error("nenhuma planta encontrada")
 
   const plant_ids = plants.map((plant) => plant._id)
-  const [errorCares, cares] = await to(Care.find({ planta_id: plant_ids }))
+  const [errorCares, cares] = await to(Care.find({ planta_id: {$in: plant_ids} }))
 
   if(errorCares) throw new Error("erro ao encontrar cuidado")
   if(!cares) throw new Error("Cuidados não encontrado")
