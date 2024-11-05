@@ -74,13 +74,14 @@ UserController.patch('/edit' , async (request: Request, response: Response) => {
   }
 })
 
-UserController.patch('/care/list' , async (request: Request, response: Response) => {
+UserController.get('/care/list' , async (request: Request, response: Response) => {
   const userId = request.userId
 
   try {
 
     const cares = await listCaresByUser(userId)
 
+    console.log({ cares })
     return response.status(202).send({ cares })
   }
   catch(error) {
