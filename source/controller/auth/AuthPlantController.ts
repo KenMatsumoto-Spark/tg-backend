@@ -10,6 +10,7 @@ import showCare from '../../features/showCare'
 import editCare from '../../features/editCare'
 import toogleCareActive from '../../features/toogleCareActive'
 import deleteCares from '../../features/deleteCares'
+import deletePlant from '../../features/deletePlant'
 
 const PlantController = Router()
 
@@ -120,10 +121,8 @@ PlantController.patch('/:plantId/care/:careId/edit', async (request: Request, re
 PlantController.post('/:plantId/care/add', async (request: Request, response: Response) => {
   const { plantId } = request.params
   const userId = request.userId
-  console.log('1');
 
   const { id, atividade, hora, minuto, frequencia, dia, texto, ativa } = request.body
-  console.log({ id, atividade, hora, minuto, frequencia, dia, texto, ativa });
 
   const invalid = PlantRules.general(
     { atividade },
@@ -133,7 +132,7 @@ PlantController.post('/:plantId/care/add', async (request: Request, response: Re
     { dia },
     { ativa }
   )
-  console.log({ invalid })
+
   if (invalid) return response.status(422).send({ invalid })
 
   try {
@@ -145,6 +144,27 @@ PlantController.post('/:plantId/care/add', async (request: Request, response: Re
     return response.status(500).send({ error: error?.toString() })
   }
 })
+
+PlantController.delete('/:plantId', async (request: Request, response: Response) => {
+  const { plantId } = request.params
+  const userId = request.userId
+
+  const invalid = PlantRules.general(
+    { plantId },
+    { userId }
+  )
+  if (invalid) return response.status(422).send({ invalid })
+
+  try {
+    await deletePlant(plantId, userId)
+
+    return response.status(202).send("Planta removida com sucesso.")
+  }
+  catch (error) {
+    return response.status(500).send({ error: error?.toString() })
+  }
+})
+
 
 PlantController.delete('/:plantId/care/:careId', async (request: Request, response: Response) => {
   const { plantId, careId } = request.params
@@ -164,6 +184,7 @@ PlantController.delete('/:plantId/care/:careId', async (request: Request, respon
     return response.status(500).send({ error: error?.toString() })
   }
 })
+
 
 PlantController.post('/care/:careId/toogle', async (request: Request, response: Response) => {
   const { careId } = request.params
