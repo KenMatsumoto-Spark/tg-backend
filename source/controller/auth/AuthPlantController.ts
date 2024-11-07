@@ -11,6 +11,7 @@ import editCare from '../../features/editCare'
 import toogleCareActive from '../../features/toogleCareActive'
 import deleteCares from '../../features/deleteCares'
 import deletePlant from '../../features/deletePlant'
+import patchPlant from '../../features/patchPlant'
 
 const PlantController = Router()
 
@@ -45,7 +46,7 @@ PlantController.get('/list', async (request: Request, response: Response) => {
   try {
     const list = await listPlantsByUser(userId)
 
-    return response.status(202).send({ list })
+    return response.status(200).send({ list })
   }
   catch (error) {
     return response.status(500).send({ error: error?.toString() })
@@ -84,7 +85,7 @@ PlantController.get('/:plantId/care/:careId/show', async (request: Request, resp
 
   try {
     const care = await showCare(plantId, careId)
-    return response.status(202).send("Cuidado da planta adicionada com sucesso")
+    return response.status(200).send("Cuidado da planta adicionada com sucesso")
   }
   catch (error) {
     return response.status(500).send({ error: error?.toString() })
@@ -111,7 +112,7 @@ PlantController.patch('/:plantId/care/:careId/edit', async (request: Request, re
   try {
     await editCare(plantId, careId, { tipo_Atividade, periodicidade, dataHora, mensagem_notificação })
 
-    return response.status(202).send("Cuidado da planta adicionada com sucesso")
+    return response.status(200).send("Cuidado da planta adicionada com sucesso")
   }
   catch (error) {
     return response.status(500).send({ error: error?.toString() })
@@ -138,7 +139,29 @@ PlantController.post('/:plantId/care/add', async (request: Request, response: Re
   try {
     await addCareToPlant(userId, plantId, { id, atividade, hora, minuto, frequencia, dia, texto, ativa })
 
-    return response.status(202).send("Cuidado da planta adicionada com sucesso.")
+    return response.status(200).send("Cuidado da planta adicionada com sucesso.")
+  }
+  catch (error) {
+    return response.status(500).send({ error: error?.toString() })
+  }
+}) 
+
+PlantController.patch('/:plantId', async (request: Request, response: Response) => {
+  const { plantId } = request.params
+  const userId = request.userId
+
+  const name = request.body
+
+  const invalid = PlantRules.general(
+    { plantId },
+    { name }
+  )
+  if (invalid) return response.status(422).send({ invalid })
+
+  try {
+    await patchPlant(plantId, userId)
+
+    return response.status(200).send("Planta editada com sucesso.")
   }
   catch (error) {
     return response.status(500).send({ error: error?.toString() })
@@ -158,13 +181,12 @@ PlantController.delete('/:plantId', async (request: Request, response: Response)
   try {
     await deletePlant(plantId, userId)
 
-    return response.status(202).send("Planta removida com sucesso.")
+    return response.status(200).send("Planta removida com sucesso.")
   }
   catch (error) {
     return response.status(500).send({ error: error?.toString() })
   }
 })
-
 
 PlantController.delete('/:plantId/care/:careId', async (request: Request, response: Response) => {
   const { plantId, careId } = request.params
@@ -173,6 +195,7 @@ PlantController.delete('/:plantId/care/:careId', async (request: Request, respon
     { plantId },
     { careId }
   )
+
   if (invalid) return response.status(422).send({ invalid })
 
   try {
@@ -192,7 +215,7 @@ PlantController.post('/care/:careId/toogle', async (request: Request, response: 
   try {
     await toogleCareActive(careId)
 
-    return response.status(202).send("Cuidado alterado con sucesso.")
+    return response.status(200).send("Cuidado alterado con sucesso.")
   }
   catch (error) {
     return response.status(500).send({ error: error?.toString() })
