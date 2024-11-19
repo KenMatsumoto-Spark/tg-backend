@@ -6,14 +6,14 @@ import User from '../models/User'
 const deleteUser = async (userId, name, avatar) => {
 
   const newParams = {}
-  if(name) newParams['nome'] = name
-  if(avatar) newParams['avatar'] = avatar
+  if (name) newParams['nome'] = name
+  if (avatar) newParams['avatar'] = avatar
 
   const [error, updatedResult] = await to(User.updateOne({
-    userId
+    _id: userId
   }, newParams))
 
-  if(error) throw new Error("erro ao atualizar cuidado.")
+  if (error) throw new Error("erro ao atualizar cuidado.")
 
   return true
 }

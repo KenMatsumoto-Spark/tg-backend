@@ -144,22 +144,22 @@ PlantController.post('/:plantId/care/add', async (request: Request, response: Re
   catch (error) {
     return response.status(500).send({ error: error?.toString() })
   }
-}) 
+})
 
 PlantController.patch('/:plantId', async (request: Request, response: Response) => {
   const { plantId } = request.params
   const userId = request.userId
 
-  const name = request.body
+  const name = request.body.name
 
   const invalid = PlantRules.general(
     { plantId },
-    { name }
+    // { name }
   )
   if (invalid) return response.status(422).send({ invalid })
 
   try {
-    await patchPlant(plantId, userId)
+    await patchPlant(plantId, name)
 
     return response.status(200).send("Planta editada com sucesso.")
   }
@@ -222,5 +222,5 @@ PlantController.post('/care/:careId/toogle', async (request: Request, response: 
   }
 })
 
-  
+
 export default PlantController
