@@ -269,7 +269,7 @@ PlantController.get('/:plantId/activity-care', async (request: Request, response
     return response.status(500).send({ error: error?.toString() })
   }
 })
-PlantController.get('/:plantId/care', async (request: Request, response: Response) => {
+PlantController.get('/:plantId/care/list', async (request: Request, response: Response) => {
   const plantId = request.params
 
   const invalid = PlantRules.general(
