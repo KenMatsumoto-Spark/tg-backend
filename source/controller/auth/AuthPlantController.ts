@@ -15,6 +15,7 @@ import patchPlant from '../../features/patchPlant'
 import addActivityRegister from '../../features/addActivityCare'
 import addActivityCare from '../../features/addActivityCare'
 import listActivityCaresByUser from '../../features/listActivityCaresByUser'
+import listCaresByPlant from '../../features/listCaresByPlant'
 
 const PlantController = Router()
 
@@ -263,6 +264,24 @@ PlantController.get('/:plantId/activity-care', async (request: Request, response
     const activityCareList = await listActivityCaresByUser(userId, plantId)
 
     return response.status(200).send({ activityCareList })
+  }
+  catch (error) {
+    return response.status(500).send({ error: error?.toString() })
+  }
+})
+PlantController.get('/:plantId/care', async (request: Request, response: Response) => {
+  const plantId = request.params
+
+  const invalid = PlantRules.general(
+    { plantId }
+  )
+
+  if (invalid) return response.status(422).send({ invalid })
+
+  try {
+    const careList = await listCaresByPlant(plantId)
+
+    return response.status(200).send({ careList })
   }
   catch (error) {
     return response.status(500).send({ error: error?.toString() })
