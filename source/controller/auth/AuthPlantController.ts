@@ -252,7 +252,7 @@ PlantController.post('/care/:careId/activity-care', async (request: Request, res
 
 PlantController.get('/:plantId/activity-care', async (request: Request, response: Response) => {
   const userId = request.userId
-  const plantId = request.params
+  const { plantId } = request.params
 
   const invalid = PlantRules.general(
     { plantId }
@@ -270,7 +270,7 @@ PlantController.get('/:plantId/activity-care', async (request: Request, response
   }
 })
 PlantController.get('/:plantId/care/list', async (request: Request, response: Response) => {
-  const plantId = request.params.plantId
+  const { plantId } = request.params.plantId
 
   const invalid = PlantRules.general(
     { plantId }
