@@ -45,6 +45,14 @@ const PlantRules = {
       validator: (value: string) => isBoolean(value),
       message: ''
     })
+    validator.addRule('ativa', {
+      validator: (value: string) => isBoolean(value),
+      message: ''
+    })
+    validator.addRule('name', {
+      validator: (value: string) => (value.trim().length >= 4),
+      message: ''
+    })
 
     const invalid = validator.check(...args)
 

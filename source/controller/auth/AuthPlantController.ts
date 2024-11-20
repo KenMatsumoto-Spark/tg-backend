@@ -12,6 +12,9 @@ import toogleCareActive from '../../features/toogleCareActive'
 import deleteCares from '../../features/deleteCares'
 import deletePlant from '../../features/deletePlant'
 import patchPlant from '../../features/patchPlant'
+import addActivityRegister from '../../features/addActivityCare'
+import addActivityCare from '../../features/addActivityCare'
+import listActivityCaresByUser from '../../features/listActivityCaresByUser'
 
 const PlantController = Router()
 
@@ -154,8 +157,9 @@ PlantController.patch('/:plantId', async (request: Request, response: Response) 
 
   const invalid = PlantRules.general(
     { plantId },
-    // { name }
+    { name }
   )
+
   if (invalid) return response.status(422).send({ invalid })
 
   try {
@@ -222,5 +226,47 @@ PlantController.post('/care/:careId/toogle', async (request: Request, response: 
   }
 })
 
+PlantController.post('/care/:careId/activity-care', async (request: Request, response: Response) => {
+  const { careId } = request.params
+
+  const { dia, mes, ano, minuto, hora } = request.body
+
+  const invalid = PlantRules.general(
+    { careId },
+    { hora },
+    { minuto }
+  )
+
+  if (invalid) return response.status(422).send({ invalid })
+
+  try {
+    await addActivityCare(careId, dia, mes, ano, minuto, hora)
+
+    return response.status(200).send("Cuidado alterado con sucesso.")
+  }
+  catch (error) {
+    return response.status(500).send({ error: error?.toString() })
+  }
+})
+
+PlantController.get('/:plantId/activity-care', async (request: Request, response: Response) => {
+  const userId = request.userId
+  const plantId = request.params
+
+  const invalid = PlantRules.general(
+    { plantId }
+  )
+
+  if (invalid) return response.status(422).send({ invalid })
+
+  try {
+    const activityCareList = await listActivityCaresByUser(userId, plantId)
+
+    return response.status(200).send({ activityCareList })
+  }
+  catch (error) {
+    return response.status(500).send({ error: error?.toString() })
+  }
+})
 
 export default PlantController

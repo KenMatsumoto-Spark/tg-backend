@@ -8,23 +8,31 @@ const schema = {
 
   ...timestamps,
 
-  efetuado:{
-    type: Boolean
-  },
-
-  dataHora: {
-    type: Date
-  },
-
-  observacoes:{
+  dia: {
     type: String
   },
 
-  cuidado_id:{
+  mes: {
+    type: String
+  },
+
+  ano: {
+    type: String
+  },
+
+  hora: {
+    type: String
+  },
+
+  minuto: {
+    type: String
+  },
+
+  cuidado_id: {
     Type: ObjectId
   }
 
-  
+
 }
 
 export default {
