@@ -14,7 +14,7 @@ UserController.post('/password/solicit', async (request: Request, response: Resp
     { email }
   )
   
-  if (invalid) return response.status(422).send({ invalid })
+  if (invalid) return response.status(422).send({ error: `${invalid[0].field}: ${invalid[0].message}` })
     
   if(!email) throw new Error('Obrigatorio envio do email')
   try {
@@ -35,7 +35,7 @@ UserController.post('/password/confirm', async (request: Request, response: Resp
     { passwordResetCode }
   )
   
-  if (invalid) return response.status(422).send({ invalid })
+  if (invalid) return response.status(422).send({ error: `${invalid[0].field}: ${invalid[0].message}` })
 
   try {
     await resetPasswordConfirm( passwordResetCode )
@@ -57,7 +57,7 @@ UserController.post('/password/new', async (request: Request, response: Response
     { passwordConfirmation: { password, passwordConfirmation }}
   )
   
-  if (invalid) return response.status(422).send({ invalid })
+  if (invalid) return response.status(422).send({ error: `${invalid[0].field}: ${invalid[0].message}` })
 
   try {
     await resetPasswordChange( password, passwordConfirmation, passwordResetCode )

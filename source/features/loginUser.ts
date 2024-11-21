@@ -12,11 +12,10 @@ const signInUser = async (email, password) => {
     email
   }))
   if(!user) throw new Error('usuário não encontrado')
+    if(error) throw new Error(error)
 
-  if(error) throw new Error(error)
 
   const [matchPassError, matchPass] = await to(bcrypt.compare(password, user?.senha))
-
   if(matchPassError) throw new Error(matchPassError.message)
   if(!matchPass) throw new Error("Senha Incorreta")
   

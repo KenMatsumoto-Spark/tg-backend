@@ -27,7 +27,7 @@ PlantController.get('/:plantId/show', async (request: Request, response: Respons
     { plantId }
   )
 
-  if (invalid) return response.status(422).send({ invalid })
+  if (invalid) return response.status(422).send({ error: `${invalid[0].field}: ${invalid[0].message}` })
 
   try {
 
@@ -85,7 +85,7 @@ PlantController.get('/:plantId/care/:careId/show', async (request: Request, resp
     { careId }
   )
 
-  if (invalid) return response.status(422).send({ invalid })
+  if (invalid) return response.status(422).send({ error: `${invalid[0].field}: ${invalid[0].message}` })
 
   try {
     const care = await showCare(plantId, careId)
@@ -111,7 +111,7 @@ PlantController.patch('/:plantId/care/:careId/edit', async (request: Request, re
     { mensagem_notificação }
   )
 
-  if (invalid) return response.status(422).send({ invalid })
+  if (invalid) return response.status(422).send({ error: `${invalid[0].field}: ${invalid[0].message}` })
 
   try {
     await editCare(plantId, careId, { tipo_Atividade, periodicidade, dataHora, mensagem_notificação })
@@ -138,7 +138,7 @@ PlantController.post('/:plantId/care/add', async (request: Request, response: Re
     { ativa }
   )
 
-  if (invalid) return response.status(422).send({ invalid })
+  if (invalid) return response.status(422).send({ error: `${invalid[0].field}: ${invalid[0].message}` })
 
   try {
     await addCareToPlant(userId, plantId, { id, atividade, hora, minuto, frequencia, dia, texto, ativa })
@@ -161,7 +161,7 @@ PlantController.patch('/:plantId', async (request: Request, response: Response) 
     { name }
   )
 
-  if (invalid) return response.status(422).send({ invalid })
+  if (invalid) return response.status(422).send({ error: `${invalid[0].field}: ${invalid[0].message}` })
 
   try {
     await patchPlant(plantId, name)
@@ -181,7 +181,7 @@ PlantController.delete('/:plantId', async (request: Request, response: Response)
     { plantId },
     { userId }
   )
-  if (invalid) return response.status(422).send({ invalid })
+  if (invalid) return response.status(422).send({ error: `${invalid[0].field}: ${invalid[0].message}` })
 
   try {
     await deletePlant(plantId, userId)
@@ -201,7 +201,7 @@ PlantController.delete('/:plantId/care/:careId', async (request: Request, respon
     { careId }
   )
 
-  if (invalid) return response.status(422).send({ invalid })
+  if (invalid) return response.status(422).send({ error: `${invalid[0].field}: ${invalid[0].message}` })
 
   try {
     await deleteCares(plantId, careId)
@@ -238,7 +238,7 @@ PlantController.post('/care/:careId/activity-care', async (request: Request, res
     { minuto }
   )
 
-  if (invalid) return response.status(422).send({ invalid })
+  if (invalid) return response.status(422).send({ error: `${invalid[0].field}: ${invalid[0].message}` })
 
   try {
     await addActivityCare(careId, dia, mes, ano, minuto, hora)
@@ -258,7 +258,7 @@ PlantController.get('/:plantId/activity-care', async (request: Request, response
     { plantId }
   )
 
-  if (invalid) return response.status(422).send({ invalid })
+  if (invalid) return response.status(422).send({ error: `${invalid[0].field}: ${invalid[0].message}` })
 
   try {
     const activityCareList = await listActivityCaresByUser(userId, plantId)
@@ -276,7 +276,7 @@ PlantController.get('/:plantId/care/list', async (request: Request, response: Re
     { plantId }
   )
 
-  if (invalid) return response.status(422).send({ invalid })
+  if (invalid) return response.status(422).send({ error: `${invalid[0].field}: ${invalid[0].message}` })
 
   try {
     const careList = await listCaresByPlant(plantId)

@@ -15,7 +15,7 @@ AuthorizationController.post('/register' , async (request: Request, response: Re
     { passwordConfirmation: { password, passwordConfirmation }}
   )
 
-  if (invalid) return response.status(422).send({ invalid })
+  if (invalid) return response.status(422).send({ error: `${invalid[0].field}: ${invalid[0].message}` })
 
   try {
     const user = await registerUser(userName, email, password)
@@ -35,7 +35,7 @@ AuthorizationController.post('/signin', async(request: Request, response: Respon
     { email }
   )
   
-  if (invalid) return response.status(422).send({ invalid })
+  if (invalid) return response.status(422).send({ error: `${invalid[0].field}: ${invalid[0].message}` })
 
   try{
     const userToken = await signInUser(email, password)

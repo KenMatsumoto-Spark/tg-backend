@@ -43,7 +43,7 @@ UserController.delete('/account', async (request: Request, response: Response) =
       { email }
     )
 
-    if (invalid) return response.status(422).send({ invalid })
+    if (invalid) return response.status(422).send({ error: `${invalid[0].field}: ${invalid[0].message}` })
 
     await deleteUser(userId, email)
 
@@ -64,7 +64,7 @@ UserController.patch('/edit', async (request: Request, response: Response) => {
       { userName: name }
     )
 
-    if (invalid) return response.status(422).send({ invalid })
+    if (invalid) return response.status(422).send({ error: `${invalid[0].field}: ${invalid[0].message}` })
 
     await patchUser(userId, name, avatar)
 
@@ -85,7 +85,7 @@ UserController.patch('/password', async (request: Request, response: Response) =
     { passwordConfirmation: { password, passwordConfirmation } }
   )
 
-  if (invalid) return response.status(422).send({ invalid })
+  if (invalid) return response.status(422).send({ error: `${invalid[0].field}: ${invalid[0].message}` })
 
   try {
 
