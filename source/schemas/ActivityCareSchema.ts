@@ -29,7 +29,7 @@ const schema = {
   },
 
   cuidado_id: {
-    Type: ObjectId
+    type: ObjectId
   }
 
 
