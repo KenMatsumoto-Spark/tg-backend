@@ -12,7 +12,7 @@ const deleteUser = async (userId, email) => {
   if(error) throw new Error("erro ao atualizar cuidado.")
   if(!user) throw new Error("usuario associado a este email não encontrado.")
 
-  if(userId !== user?._id){
+  if(!userId.equals(user?._id)){
     throw new Error("usuario Logado não coincide com o email informado.")
   }
 
