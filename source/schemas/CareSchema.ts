@@ -44,7 +44,7 @@ const schema = {
   },
 
   ativa: {
-    type: String,
+    type: Boolean,
     required: true
   },
 
