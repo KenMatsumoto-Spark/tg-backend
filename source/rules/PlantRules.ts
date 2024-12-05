@@ -38,7 +38,7 @@ const PlantRules = {
       message: ''
     })
     validator.addRule('frequencia', {
-      validator: (value: string) => (['hoje'].includes(value.toLowerCase())),
+      validator: (value: string) => (['hoje', 'diariamente', 'semanalmente'].includes(value.toLowerCase())),
       message: ''
     })
     validator.addRule('ativa', {
