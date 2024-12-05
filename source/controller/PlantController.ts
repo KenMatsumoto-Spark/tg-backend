@@ -11,7 +11,7 @@ PlantController.get('/search' , async (request: Request, response: Response) => 
   try {
     const plants = await searchPlant(plantName)
   
-    return response.status(202).send({ plants })
+    return response.status(200).send({ plants })
   }
   catch(error) {
     return response.status(500).send({ error: error?.toString() })
@@ -24,7 +24,7 @@ PlantController.get('/info' , async (request: Request, response: Response) => {
   try {
     const plants = await getPlantInfo(plant_access_token)
   
-    return response.status(202).send({ plants })
+    return response.status(200).send({ plants })
   }
   catch(error) {
     return response.status(500).send({ error: error?.toString() })
@@ -37,7 +37,7 @@ PlantController.get('/activity/list' , async (request: Request, response: Respon
   try {
     const activities = await listActivities()
   
-    return response.status(202).send({ atividades: activities })
+    return response.status(200).send({ atividades: activities })
   }
   catch(error) {
     return response.status(500).send({ error: error?.toString() })

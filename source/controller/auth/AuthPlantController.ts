@@ -37,7 +37,7 @@ PlantController.get('/:plantId/show', async (request: Request, response: Respons
 
     const cares = await showPlantCare(plantId)
 
-    return response.status(202).send({ plant, cares })
+    return response.status(200).send({ plant, cares })
   }
   catch (error) {
     return response.status(500).send({ error: error?.toString() })
@@ -69,7 +69,7 @@ PlantController.post('/add', async (request: Request, response: Response) => {
 
     await addPlant(userId, plant, plant_access_token)
 
-    return response.status(202).send("planta adicionada com sucesso")
+    return response.status(200).send("planta adicionada com sucesso")
   }
   catch (error) {
     return response.status(500).send({ error: error?.toString() })
@@ -206,7 +206,7 @@ PlantController.delete('/:plantId/care/:careId', async (request: Request, respon
   try {
     await deleteCares(plantId, careId)
 
-    return response.status(202).send("Cuidado da planta removido com sucesso.")
+    return response.status(200).send("Cuidado da planta removido com sucesso.")
   }
   catch (error) {
     return response.status(500).send({ error: error?.toString() })

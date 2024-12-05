@@ -26,7 +26,7 @@ UserController.get('/info', async (request: Request, response: Response) => {
       createdAt: user.createdAt
     }
 
-    return response.status(202).send(userInfo)
+    return response.status(200).send(userInfo)
   }
   catch (error) {
     return response.status(500).send({ error: error?.toString() })
@@ -47,7 +47,7 @@ UserController.delete('/account', async (request: Request, response: Response) =
 
     await deleteUser(userId, email)
 
-    return response.status(202).send("Usuario excluido.")
+    return response.status(200).send("Usuario excluido.")
   }
   catch (error) {
     return response.status(500).send({ error: error?.toString() })
@@ -68,7 +68,7 @@ UserController.patch('/edit', async (request: Request, response: Response) => {
 
     await patchUser(userId, name, avatar)
 
-    return response.status(202).send("Usuario alterado com sucesso.")
+    return response.status(200).send("Usuario alterado com sucesso.")
   }
   catch (error) {
     return response.status(500).send({ error: error?.toString() })
@@ -91,7 +91,7 @@ UserController.patch('/password', async (request: Request, response: Response) =
 
     await resetPasswordChangeLoggedUser(oldPassword, password, passwordConfirmation, userId)
 
-    return response.status(202).send("Senha do usuario alterada com sucesso.")
+    return response.status(200).send("Senha do usuario alterada com sucesso.")
   }
   catch (error) {
     return response.status(500).send({ error: error?.toString() })
@@ -106,7 +106,7 @@ UserController.get('/care/list', async (request: Request, response: Response) =>
     const cares = await listCaresByUser(userId)
 
     console.log({ cares })
-    return response.status(202).send({ cares })
+    return response.status(200).send({ cares })
   }
   catch (error) {
     return response.status(500).send({ error: error?.toString() })
