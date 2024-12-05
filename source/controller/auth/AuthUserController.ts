@@ -33,7 +33,7 @@ UserController.get('/info', async (request: Request, response: Response) => {
   }
 })
 
-UserController.delete('/account', async (request: Request, response: Response) => {
+UserController.post('/account/delete', async (request: Request, response: Response) => {
   const userId = request.userId
   const { email } = request.body
 
