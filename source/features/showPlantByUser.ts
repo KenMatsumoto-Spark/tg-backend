@@ -10,9 +10,6 @@ const plantIdApiKey = process.env.PLANT_ID_API_KEY
 const env = process.env.ENVIRONMENT
 
 const showPlantByUser = async (userId, plantId: string) => {
-  
-
-
 
   const mockedResponse = {
     "common_names": [
@@ -77,9 +74,9 @@ const showPlantByUser = async (userId, plantId: string) => {
     "name": "Rosa"
   }
   
-  if(env != "prod"){
-    return mockedResponse
-  }
+  // if(env != "prod"){
+  //   return mockedResponse
+  // }
 
   const [error, plantData] = await to(Plant.findOne({ id_usuario: userId, plantId: new mongoose.Types.ObjectId(plantId) }))
 

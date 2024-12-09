@@ -18,7 +18,7 @@ UserController.post('/password/solicit', async (request: Request, response: Resp
     
   if(!email) throw new Error('Obrigatorio envio do email')
   try {
-    // await solicitPasswordChange(email)
+    await solicitPasswordChange(email)
 
     return response.status(200).send('Token Confirmado.')
   } 
