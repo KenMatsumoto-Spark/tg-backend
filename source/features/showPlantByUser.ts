@@ -78,7 +78,7 @@ const showPlantByUser = async (userId, plantId: string) => {
   //   return mockedResponse
   // }
 
-  const [error, plantData] = await to(Plant.findOne({ id_usuario: userId, plantId: new mongoose.Types.ObjectId(plantId) }))
+  const [error, plantData] = await to(Plant.findOne({ id_usuario: userId, _id: new mongoose.Types.ObjectId(plantId) }))
 
   if(error) throw new Error("erro ao encontrar planta do usuario")
   if(!plantData) throw new Error("planta não encontrada")
