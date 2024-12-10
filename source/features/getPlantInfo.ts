@@ -73,9 +73,9 @@ const getPlantInfo = async (plant_access_token) => {
     "name": "Rosa"
   }
   
-  if(env != "prod"){
-    return mockedResponse
-  }
+  // if(env != "prod"){
+  //   return mockedResponse
+  // }
 
   const config = {
     method: 'get',
